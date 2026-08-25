@@ -84,7 +84,7 @@ public class Vetor<T extends Comparable<T>> {
     public void ordena() {
         for (int i = 0; i < elementos.length - 1; i++) {
             for (int j = 0; j < elementos.length -1; j++) {
-                T proximo = elementos[j + i];
+                T proximo = elementos[j + 1];
                 if (elementos[j].compareTo(proximo) > 0 ) {
                     //Faz o Swap das posições trocando de um temporário para a posição especifica
                     T temporario = elementos[j];
@@ -96,7 +96,7 @@ public class Vetor<T extends Comparable<T>> {
     }
 
     //Basicamente o método localizar. Tendo como complexidade O(N) (Quanto maior o Array, mais demora)
-    public int buscaLinearOrdenada( T[] elementos, T valor ) {
+    public int buscaLinearOrdenada(T valor ) {
         for (int i = 0; i < elementos.length; i++) {
             if (elementos[i] == valor) {
                 return i;
@@ -144,5 +144,17 @@ public class Vetor<T extends Comparable<T>> {
             }
         }
         return -1; //Caso não encontre o elemento
+    }
+
+    public int getElementoslenght() {
+        return elementos.length;
+    }
+
+    public T ler(int indice) {
+        if (indice >= 0 || indice < tamanho) {
+            return elementos[indice];
+        } else {
+            throw new IndexOutOfBoundsException("Posição inválida");
+        }
     }
 }
