@@ -70,10 +70,36 @@ public class Labirinto {
 
 
 
-    public void verificar(int linha, int coluna){}
+    public Posicao verificar(Posicao posicao) {
+        Posicao Acima = new Posicao(posicao.getLinha() - 1, posicao.getColuna(), mapa[posicao.getLinha() - 1][posicao.getColuna()]);
+        Posicao Abaixo = new Posicao(posicao.getLinha() + 1, posicao.getColuna(),mapa[posicao.getLinha() + 1][posicao.getColuna()]);
+        Posicao Esquerda = new Posicao(posicao.getLinha(), posicao.getColuna() - 1,mapa[posicao.getLinha()][posicao.getColuna() - 1]);
+        Posicao Direita = new Posicao(posicao.getLinha(), posicao.getColuna() + 1,mapa[posicao.getLinha()][posicao.getColuna() + 1]);
+
+        if(mapa[Acima.getLinha()][Acima.getColuna()] == ' ' || mapa[Acima.getLinha()][Acima.getColuna()] == 'T' ){
+            return Acima;
+        } else if (mapa[Abaixo.getLinha()][Abaixo.getColuna()] == ' '|| mapa[Abaixo.getLinha()][Abaixo.getColuna()] == 'T' ) {
+            return Abaixo;
+        } else if (mapa[Esquerda.getLinha()][Esquerda.getColuna()] == ' '|| mapa[Esquerda.getLinha()][Esquerda.getColuna()] == 'T' ) {
+            return Esquerda;
+        } else if (mapa[Direita.getLinha()][Direita.getColuna()] == ' '|| mapa[Direita.getLinha()][Direita.getColuna()] == 'T' ) {
+            return Direita;
+        } else {
+            return posicao;
+        }
+
+    }
 
 
-    public void mover(int linha, int coluna){}
+    public void mover(Stack<Posicao> pilha){
+        Posicao atual = pilha.peek();
+        if(verificar(atual) == atual){
+            pilha.pop();
+        }else{
+            atual.setValor('X');
+            pilha.push(verificar(atual));
+
+    }
 
 
 
@@ -85,11 +111,15 @@ public class Labirinto {
 
 
         Pilha<Posicao> pilha = new Pilha<>();
-        Posicao posicaoInicial = new Posicao(labirinto.linhaInicial, labirinto.colunaInicial);
-        pilha.push(posicaoInicial);
-        while(!pilha.isEmpty()){
 
+        Posicao posicaoInicial = new Posicao(labirinto.linhaInicial, labirinto.colunaInicial, labirinto.mapa[labirinto.linhaInicial][labirinto.colunaInicial]);
+
+        pilha.push(posicaoInicial);
+        while(pilha.peek().getValor() != 'T'){
+            labirinto.mover(pilha);
         }
+        system.out.println("Caminho encontrado!");
+        labirinto.imprimir();
 
     }
 }
