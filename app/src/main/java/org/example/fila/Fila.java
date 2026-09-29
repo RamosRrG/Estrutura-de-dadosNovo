@@ -20,12 +20,12 @@ public class Fila <T extends Comparable>{
         tamanho++;
     }
 
-    private boolean inEmpty(){
-        return tamanho ==0;
+    public boolean isEmpty(){
+        return tamanho == 0;
     }
 
     public T desenfileirar(){
-        if(inEmpty()){
+        if(isEmpty()){
             throw new RuntimeException("Fila Vazia");
         }
         T elemento = elementos[0];
@@ -38,7 +38,7 @@ public class Fila <T extends Comparable>{
     }
 
     public T peak(){
-        if(inEmpty()){
+        if(isEmpty()){
             throw new RuntimeException("Fila Vazia");
         }
 
@@ -46,7 +46,7 @@ public class Fila <T extends Comparable>{
     }
 
     public void imprimir(){
-        if(inEmpty()){
+        if(isEmpty()){
             throw new RuntimeException("Fila Vazia");
         }else{
             System.out.println("Fila: ");
@@ -54,6 +54,14 @@ public class Fila <T extends Comparable>{
             System.out.println(elementos[i] + "");
             }
             System.out.println();
+        }
+    }
+
+    public boolean estaCheia(){
+        if (tamanho == elementos.length){
+            return true;
+        }else{
+            return false;
         }
     }
 
