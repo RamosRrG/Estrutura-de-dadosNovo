@@ -22,7 +22,7 @@ public class Servidor {
 
     public void executar(int ciclos) {
         for (int ciclo = 1; ciclo <= ciclos; ciclo++) {
-            int novasReq = aleatorios.nextInt(1, N);
+            int novasReq = aleatorios.nextInt( N+1);
 
             for (int i = 0; i < novasReq; i++) {
                 int nunNovaReq = aleatorios.nextInt();
@@ -47,12 +47,13 @@ public class Servidor {
 
     public String Relatorio(){
         double porcentagemPerda = 0;
+        int requisicoesNaoAtendidas = totalReqGeradas - totalReqAtendidas - totalReqPerdidas;
         if (totalReqGeradas > 0) {
-            porcentagemPerda = ((double) totalReqPerdidas / totalReqGeradas) * 100;
+            porcentagemPerda = ((double) (totalReqPerdidas+requisicoesNaoAtendidas) / totalReqGeradas) * 100;
         }
         return "Total requisições Geradas: "+ totalReqGeradas + "\n"
                 + "Total requisições Atendidas: "+ totalReqAtendidas +"\n"
-                + "Total requisições Perdidas: " + totalReqPerdidas + "\n"
+                + "Total requisições Perdidas: " + (totalReqPerdidas + requisicoesNaoAtendidas) + "\n"
                 + "Este servidor teve uma porcentagem de " + porcentagemPerda+ "% de perda";
     }
 
